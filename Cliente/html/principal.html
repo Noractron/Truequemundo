@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRUEQUEMUNDO</title>
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/my-styles/principal.css">
+</head>
+<body>
+    <div class="container my-5 text-center">
+        <button class ="btn btn-danger w-100" onclick="traer()">OBTENER</button>
+        <div class="mt-5" id="contenido"></div>
+    </div>
+    <header class="card text-center d-flex flex-column align-items-center" id="header">
+        <div class="d-flex flex-row justify-content-between align-items-center" id="headerTop">
+            <div class="d-flex flex-row justify-content-between align-items-center" id="headerTopLeft">
+                <a href="#"><img src="../images/logo.png" alt="logoTruequeMundo" class="img-logo"></a>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-center" id="headerTopRight">
+                <div class="d-flex flex-row align-items-center" id="searcher">
+                    <!--FORM to DIV-->
+                    <input type="text" size="10" placeholder="Country..." id="countrySearcher" class="item-searcher">
+                    <input type="text" size="10" placeholder="City..." id="citySearcher" class="item-searcher">
+                    <input type="text" size="20" placeholder="What do you want to find?" id="txtSearcher" class="item-searcher">
+                    <!-- <input type="submit" id="btnSearcher" value="Search" class="btn btn-primary btn-bkg"> -->
+                    <button id="btnSearcher" class="btn btn-primary btn-bkg text-white">Search</button>
+                    <!--FORM to DIV-->
+                </div>
+                <nav class="d-flex flex-row" id="navList">
+                    <ul class="nav d-flex flex-row align-items-center ml-2">
+                        <li class="nav-item dropdown" id="btnUser">
+                            <a href="#" class="font-color nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                <button class="dropdown-item" data-toggle="modal" data-target="#modalEditProfile" id="btnEditProfile"><i class="fas fa-user-edit"></i> Edit profile</button>
+                                <button class="dropdown-item" disabled><i class="fas fa-list-ol"></i> My products</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                            </div>
+                        </li>
+                        <li class="nav-item" id="btnBell">
+                            <a class="nav-link pr-0 font-color" disabled><i class="fas fa-bell"></i></a>
+                        </li>
+                        <li class="nav-item" id="btnSearch">
+                            <a class="nav-link pr-0 font-color ml-2" href="#"><i class="fas fa-search"></i></a>
+                        </li>
+                        <li class="nav-item dropdown" id="btnMenu">
+                            <a class="nav-link dropdown-toggle pr-0 font-color" href="#" id="menuDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="menuDropdown">
+                                <a class="dropdown-item" href="#">Search</a>
+                                <a class="dropdown-item" href="#">User</a>
+                                <a class="dropdown-item" href="#">Alerts</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="d-flex flex-row justify-content-center" id="headerBottom">
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link font-color" href="#"><i class="fas fa-star"></i> Popular</a></li>
+                <li class="nav-item"><a class="nav-link font-color" href="#"><i class="fas fa-clock"></i> Recently viewed</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container-principal" id="cont-principal">
+        <main class="d-flex flex-column" id="principal">
+            <section class="d-flex flex-wrap justify-content-between" id="sectionPrincipal">
+                <!--ARTICLES-->
+            </section>
+            <div class="d-flex justify-content-center m-3">
+                <button id="btnWatchMore" class="btn btn-secondary">More products...</button>
+            </div>
+        </main>
+    </div>
+    
+    <footer class="card text-center" id="footer">
+        <div class="card-body">
+            <h5 class="card-title text-white">Copyright © 2020 TruequeMundo</h5>
+            <p class="card-text text-white">Web page made by FuturaSoft</p>
+        </div>
+    </footer>
+
+    <!--MODAL EDIT PROFILE-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalEditProfile">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Edit your profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body d-flex align-items-start flex-column">
+                  <div class="d-flex justify-content-between">
+                      <label for="editFName" class="label-style">First name:</label>
+                      <input type="text" required id="editFName" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editLName" class="label-style">Last Name:</label>
+                      <input type="text" required id="editLName" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editEmail" class="label-style">Email:</label>
+                      <input type="email" disabled id="editEmail" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editPassword" class="label-style">Password:</label>
+                      <input type="password" required id="editPassword" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editPhone" class="label-style">Telephone:</label>
+                      <input type="text" id="editPhone" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editCell" class="label-style">Cell Phone:</label>
+                      <input type="text" id="editCell" class="mb-3">
+                  </div>
+                  <!-- <div class="d-flex justify-content-between">
+                      <label for="editPhoto" class="label-style">Photo:</label>
+                      <input type="file" id="editPhoto" class="mb-3">
+                  </div> -->
+                  <div class="d-flex justify-content-between">
+                      <label for="editDateBirth" class="label-style">Date of birth:</label>
+                      <input type="date" id="editDateBirth" class="mb-3">
+                  </div>
+                  <div>
+                      <label class="label-style">Sex:</label>
+                      <input type="radio" id="male" name="gender" value="male" class="mr-1">
+                      <label for="male" class="mr-3">Male</label>
+                      <input type="radio" id="female" name="gender" value="female" class="mr-1">
+                      <label for="female" class="mr-3">Female</label>
+                      <input type="radio" id="other" name="gender" value="other" class="mr-1">
+                      <label for="other">Other</label>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editCountry" class="label-style">Country:</label>
+                      <input type="text" id="editCountry" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editCity" class="label-style">City:</label>
+                      <input type="text" id="editCity" class="mb-3">
+                  </div>
+                  <div class="d-flex justify-content-between">
+                      <label for="editAddress" class="label-style">Address:</label>
+                      <input type="text" id="editAddress" class="mb-3">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-bkg text-white" id="btnLoadData">Load Data</button>
+                <button type="button" class="btn btn-primary btn-bkg text-white">Save changes</button>
+              </div>
+            </div>
+          </div>
+    </div>
+    <!--MODAL EDIT PROFILE-->
+    <script>
+        var contenido= document.querySelector('#contenido')
+        function traer(){
+            fetch('https://truequeprueba.herokuapp.com/events/buscar_usuario')
+            // .then(res=>res.json())
+            // .then(data =>{
+            //     console.log(data);
+            // })
+            .then(function(res){
+                return res.json();
+            })
+            .then(function(myJson){
+                console.log(myJson);
+            })
+            .catch((error) =>{
+                console.log(error)
+            })
+        }
+    </script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/my-scripts/script-username.js"></script>
+    <script src="../js/my-scripts/script-search-principal.js"></script>
+    <script src="../js/my-scripts/script-edit-profile.js"></script>
+    <script src="../js/my-scripts/script-logout.js"></script>
+    <!-- <script src="../js/my-scripts/script-edit-profile.js"></script> -->
+</body>
+</html>
