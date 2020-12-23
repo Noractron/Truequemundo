@@ -153,14 +153,14 @@ function cambiarPassword(req, res) {
 	});
 }
 
-function buscarUsuarios(req, res) {
+async function buscarUsuarios(req, res) {
 	//conecto la base de datos
 	if (req.body.email) {
 
-		MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+		await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, async (err, db) => {
 			var base = db.db("truequeMundo");
 			var coleccion = base.collection("usuarios");
-			coleccion.findOne({ email: req.body.email.toLowerCase() }, (error, eventos) => {
+			await coleccion.findOne({ email: req.body.email.toLowerCase() }, (error, eventos) => {
 				if (error) throw error;
 				// res.send({email: req.session.email_user})			
 				res.send(JSON.stringify(eventos));

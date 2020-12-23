@@ -298,7 +298,7 @@ function allProductos(req, res){
 		   }
 	  ]
 	MongoClient.connect(url, { useNewUrlParser: true }, (err, db) =>{ 
-		var base = db.db("truequeMundo");
+		var base = db.db("truequemundo");
 		var coleccion = base.collection("producto");
 		coleccion.aggregate(query).toArray((error, eventos) =>{
 			if (error) throw error;				
