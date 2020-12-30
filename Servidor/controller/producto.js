@@ -4,6 +4,7 @@ var MongoClient = require("mongodb").MongoClient;
 const { url } = require("../conexion/server");
 const { AutoIncremental } = require('../config/libs');
 const fs = require('fs').promises
+const path = require("path");
 
 function saveProducto(req, res) {
 	if (req.body.email) {
@@ -70,9 +71,10 @@ function updateProducto(req, res) {
 				let resultado = await coleccion.findOneAndUpdate(condicional, newValues)
 				var queryNewFotos = [];
 				var queryRutaMongo = [];
+				// console.log(__dirname)
 				var cantidadFotosMongo = resultado.value.fotos.length;
 				for (var contador = 0; contador < cantidadFotosMongo; contador++) {
-					queryRutaMongo.push(`Servidor\\Cliente\\public\\uploads\\${resultado.value.fotos[contador]}`)
+					queryRutaMongo.push(path.join(__dirname, `../Cliente/public/uploads/${resultado.value.fotos[contador]}`))
 				};
 				var cantidadNewFotos = Object.keys(req.files).length;
 				for (var contador = 0; contador < cantidadNewFotos; contador++) {
