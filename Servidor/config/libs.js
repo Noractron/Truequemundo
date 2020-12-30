@@ -60,28 +60,40 @@ function ultimoLogin(correo) {
 // 		cb(null,file.fieldname + '-' + req.session.email_user + Date.now() + path.extname(file.originalname));
 //     }
 // });	
+const storage = multer.diskStorage({
+    destination: path.join(__dirname, '../Cliente/public/uploads'),
+    
+    filename:  (req, file, cb) => {
+        cb(null,file.fieldname + '-' + req.session.email_user + Date.now() + path.extname(file.originalname));
+    }
+})
 
 const upload = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: 'bucket-name',
-        key: function (req, file, cb) {
-            console.log(file);
-            cb(null,file.fieldname + '-' + req.session.email_user + Date.now() + path.extname(file.originalname));
-        }
-    }),
-    limits:{fileSize:1000000},  
-    fileFilter:(req,file,cb)=>{
-        var filetypes=/jpeg|jpg|png|gif/;
-        const mimetype=filetypes.test(file.mimetype);
-        var extname = filetypes.test(path.extname(file.originalname));
-        if(extname && mimetype){
-            return cb(null,true)
-        }
-        cb("Error:Archibo debe ser una imagen Valida");
+    storage,
+    limits: {fileSize: 1000000}
+})
 
-    }
-});
+// const upload = multer({
+//     storage: multerS3({
+//         s3: s3,
+//         bucket: 'bucket-name',
+//         key: function (req, file, cb) {
+//             console.log(file);
+//             cb(null,file.fieldname + '-' + req.session.email_user + Date.now() + path.extname(file.originalname));
+//         }
+//     }),
+//     limits:{fileSize:1000000},  
+//     fileFilter:(req,file,cb)=>{
+//         var filetypes=/jpeg|jpg|png|gif/;
+//         const mimetype=filetypes.test(file.mimetype);
+//         var extname = filetypes.test(path.extname(file.originalname));
+//         if(extname && mimetype){
+//             return cb(null,true)
+//         }
+//         cb("Error:Archibo debe ser una imagen Valida");
+
+//     }
+// });
 
 
 module.exports ={AutoIncremental,ultimoLogin,upload};

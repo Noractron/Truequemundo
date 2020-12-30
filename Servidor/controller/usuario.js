@@ -12,12 +12,12 @@ const nodeEmail = require('../nodeEmail/config');
 
 
 function saveUser(req, res) {
-	MongoClient.connect(url, { useNewUrlParser: true }, async (err, db) => {
+	MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true  }, async (err, db) => {
 		if (err) throw err;
 		var base = db.db("truequeMundo");
 		var coleccion = base.collection("usuarios");
 		try {
-			coleccion.insertOne({
+			await coleccion.insertOne({
 				codigo: await AutoIncremental("usuarios"),
 				nombre: req.body.nombre,
 				apellido: req.body.apellido,
@@ -47,7 +47,7 @@ function saveUser(req, res) {
 
 
 function updateUser(req, res) {
-	MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+	MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true  }, async (err, db) => {
 		if (err) throw err;
 		var base = db.db("truequeMundo");
 		var coleccion = base.collection("usuarios");
@@ -66,7 +66,7 @@ function updateUser(req, res) {
 			}
 		}
 		try {
-			coleccion.updateOne(condicional, newValues, (err, respuesta) => {
+			await coleccion.updateOne(condicional, newValues, (err, respuesta) => {
 				if (err) throw err;
 				res.send("ok");
 			});
@@ -78,14 +78,14 @@ function updateUser(req, res) {
 }
 
 function desactivateUser(req, res) {
-	MongoClient.connect(url, { useNewUrlParser: true }, (err, db) => {
+	MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true  }, async (err, db) => {
 		if (err) throw err;
 		var base = db.db("truequeMundo");
 		var coleccion = base.collection("usuarios");
 		var condicional = { codigo: parseInt(req.body.codigo) };
 		var newValues = { $set: { estado: "inactivo" } }
 		try {
-			coleccion.updateOne(condicional, newValues, (err, resuesta) => {
+			await coleccion.updateOne(condicional, newValues, (err, resuesta) => {
 				if (err) throw err;
 				res.send("ok");
 			});
@@ -113,19 +113,10 @@ function recuperarContrasena(req, res) {
 			let password = newPassword;
 			var condicional = { codigo: parseInt(busqueda.codigo) };
 			var newValues = { $set: { password: md5(newPassword) } };
-			// const client = require('twilio')(accountSID, authToken);
-			// await client.messages
-			// 	.create({
-			// 		from: `+15168066375`,
-			// 		to: `+51940202780`,
-			// 		body: newPassword
-			// 	}).then(message => console.log(message.sid));
 			let email = req.body.email
 			await coleccion.updateOne(condicional, newValues);
 			await nodeEmail.nodeEmail(email, password, "ClienteResetPassword");
 			res.send("Reseteado")
-			// res.send(JSON.stringify({ newPassword: password, celular: busqueda.celular }));
-
 		} else {
 			res.status(400).send("Sin Resultados");
 		}
@@ -134,7 +125,7 @@ function recuperarContrasena(req, res) {
 }
 
 function cambiarPassword(req, res) {
-	MongoClient.connect(url, { useNewUrlParser: true }, async (err, db) => {
+	MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true  }, async (err, db) => {
 		if (err) throw err;
 		var base = db.db("truequeMundo");
 		var coleccion = base.collection("usuarios");

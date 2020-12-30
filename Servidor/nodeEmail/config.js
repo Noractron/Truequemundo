@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const saludo = require('../lib/utils')
 const mensajeUsuario = require('./message');
+const smtpTransport = require("nodemailer-smtp-transport");
 
 async function nodeEmail(USU_EMAIL, USU_PASSW, TipoMensaje) {
     let mensajeCuerpo = mensajeUsuario.mensajeTipoUsuario(TipoMensaje)
@@ -12,28 +13,27 @@ async function nodeEmail(USU_EMAIL, USU_PASSW, TipoMensaje) {
 
     correo = USU_EMAIL;
 
-
-    let transporter = nodemailer.createTransport({
-        host: 'vps.server.local',
-        port: 443,  
-        secure: false,
+    var transporter = nodemailer.createTransport(smtpTransport({
+        host: 'truequemundo.xyz',
+        port: 465,
         auth: {
-            user: 'truequemundo2020@truequemundo.xyz',
-            pass: 'Futurasoft2@2@'
+            user: 'truequemundo21@truequemundo.xyz',
+            pass: 'jonimon321jojo'
         },
         tls: {
             rejectUnauthorized: false
         }
-    });
+    }));
+
     // console.log(transporter);
     let info = await transporter.sendMail({
-        from: `"TruequeMundo Server" <truequemundo2020@truequemundo.xyz>`, // sender address,
+        from: `"TruequeMundo Server" <truequemundo21@truequemundo.xyz>`, // sender address,
         to: correo,
         subject: 'Website Contact Form',
         // text: 'Hello World'
         html: contentHTML.html
     });
-    console.log(info);
+    // console.log(info);
     console.log('Message sent: %s', info.messageId);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
