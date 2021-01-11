@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 //eschucho el inicio de sesion 
 app.post("/login", (req, res) => {
 	//almacenos los datos en variables
-	let user = req.body.user.toLowerCase();
+	let user = req.body.user;
 	let pass = req.body.pass;
 	//* conecto a la base de datos 
 	MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
